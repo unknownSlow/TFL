@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>TFL - The Faceless AI</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: white;
+    color: black;
+    padding: 20px;
+  }
+  #chat {
+    border: 1px solid black;
+    padding: 10px;
+    height: 300px;
+    overflow-y: auto;
+    background-color: white;
+  }
+  #userInput {
+    width: 80%;
+    padding: 10px;
+    font-size: 1em;
+  }
+  #sendBtn {
+    padding: 10px 20px;
+    font-size: 1em;
+    cursor: pointer;
+  }
+  .message {
+    margin: 5px 0;
+  }
+</style>
+</head>
+<body>
+  <h1>TFL - The Faceless AI</h1>
+  <div id="chat"></div>
+  <input id="userInput" type="text" placeholder="Type your message here..." autocomplete="off" />
+  <button id="sendBtn">Send</button>
+
+<script>
+  const chatDiv = document.getElementById('chat');
+  const userInput = document.getElementById('userInput');
+  const sendBtn = document.getElementById('sendBtn');
+
+  function addMessage(text) {
+    const msg = document.createElement('div');
+    msg.classList.add('message');
+    msg.textContent = text;
+    chatDiv.appendChild(msg);
+    chatDiv.scrollTop = chatDiv.scrollHeight;
+  }
+
+  function tflRespond(input) {
+    const lower = input.toLowerCase();
+    if (!input.trim()) return "Please say something.";
+    if (lower.includes('hello') || lower.includes('hi')) return "Hello! I am TFL.";
+    if (lower.includes('hack')) return "I can help you understand hacking concepts.";
+    if (lower.includes('code')) return "Coding is powerful. What do you want to create?";
+    return "I am still learning. Tell me more!";
+  }
+
+  sendBtn.addEventListener('click', () => {
+    const text = userInput.value.trim();
+    if (!text) return;
+    addMessage("User: " + text);
+    const reply = tflRespond(text);
+    addMessage("TFL: " + reply);
+    userInput.value = '';
+    userInput.focus();
+  });
+
+  userInput.addEventListener('keydown', e => {
+    if (e.key === 'Enter') sendBtn.click();
+  });
+</script>
+</body>
+</html>
